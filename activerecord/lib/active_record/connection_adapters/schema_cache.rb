@@ -73,6 +73,7 @@ module ActiveRecord
 
       # Get the columns for a table
       def columns(table_name)
+        Rails.logger.info("Column hit from Schema Cache")
         @columns[table_name] ||= connection.columns(table_name)
       end
 
