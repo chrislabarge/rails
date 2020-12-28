@@ -48,6 +48,7 @@ module ActiveRecord
         def primary_key(name, type = :primary_key, **options)
           logger = Rails.logger
           logger.info options.inspect
+          logger.info "HEREeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
           if type == :uuid
             options[:default] = options.fetch(:default, "gen_random_uuid()")
           end
