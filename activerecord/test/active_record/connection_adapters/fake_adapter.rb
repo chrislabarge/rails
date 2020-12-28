@@ -36,6 +36,7 @@ module ActiveRecord
       end
 
       def columns(table_name)
+        Rails.logger.info("columns hit from Fake Adapter")
         @columns[table_name]
       end
 

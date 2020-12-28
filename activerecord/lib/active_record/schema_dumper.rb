@@ -39,6 +39,7 @@ module ActiveRecord
     end
 
     def dump(stream)
+      Rails.logger.info("Dumping the file")
       header(stream)
       extensions(stream)
       tables(stream)
@@ -109,6 +110,8 @@ HEADER
       end
 
       def table(table, stream)
+        Rails.logger.info("Connection")
+        Rails.logger.info(@connection.inspect)
         columns = @connection.columns(table)
         begin
           self.table_name = table
@@ -119,6 +122,10 @@ HEADER
           pk = @connection.primary_key(table)
 
           tbl.print "  create_table #{remove_prefix_and_suffix(table).inspect}"
+
+          Rails.logger.info("primary key")
+          Rails.logger.info(pk)
+          Rails.logger.info(remove_prefix_and_suffix(table).inspect)
 
           case pk
           when String
@@ -135,6 +142,9 @@ HEADER
           end
 
           table_options = @connection.table_options(table)
+
+          Rails.logger.info("Table Options")
+          Rails.logger.info(table_options)
           if table_options.present?
             tbl.print ", #{format_options(table_options)}"
           end
@@ -244,6 +254,8 @@ HEADER
       end
 
       def format_options(options)
+        Rails.logger.info("Format Options")
+        Rails.logger.info(options)
         options.map { |key, value| "#{key}: #{value.inspect}" }.join(", ")
       end
 
