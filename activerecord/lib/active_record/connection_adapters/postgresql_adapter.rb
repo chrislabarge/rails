@@ -817,7 +817,8 @@ module ActiveRecord
         #  - format_type includes the column size constraint, e.g. varchar(50)
         #  - ::regclass is a function that gives the id for a table name
         def column_definitions(table_name)
-          query(<<~SQL, "SCHEMA")
+          Rails.logger.info("Column Definitions from PostgreSQL adapter")
+          hey = query(<<~SQL, "SCHEMA")
               SELECT a.attname, format_type(a.atttypid, a.atttypmod),
                      pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod,
                      c.collname, col_description(a.attrelid, a.attnum) AS comment
@@ -829,6 +830,8 @@ module ActiveRecord
                  AND a.attnum > 0 AND NOT a.attisdropped
                ORDER BY a.attnum
           SQL
+          Rails.logger.info(hey)
+          hey
         end
 
         def extract_table_ref_from_insert_sql(sql)
