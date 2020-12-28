@@ -1031,6 +1031,9 @@ module ActiveRecord
     end
 
     def migrate(target_version = nil, &block)
+      logger = Rails.logger
+      logger.info "innerrrrrr migrate"
+      logger.info target_version.inspect
       case
       when target_version.nil?
         up(target_version, &block)
@@ -1057,6 +1060,9 @@ module ActiveRecord
       else
         migrations
       end
+
+      Rails.logger.info "inner up"
+
 
       Migrator.new(:up, selected_migrations, schema_migration, target_version).migrate
     end

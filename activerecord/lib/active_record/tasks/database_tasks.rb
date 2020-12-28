@@ -239,6 +239,8 @@ module ActiveRecord
           scope.blank? || scope == migration.scope
         end
 
+        raise "HERE".inspect
+
         ActiveRecord::Base.clear_cache!
       ensure
         Migration.verbose = verbose_was
