@@ -110,8 +110,13 @@ module ActiveRecord
 
       # Returns an array of +Column+ objects for the table specified by +table_name+.
       def columns(table_name)
+        Rails.logger.info("Column hit from Schema Statements")
         table_name = table_name.to_s
-        column_definitions(table_name).map do |field|
+
+        fields = column_definitions(table_name)
+        Rails.logger.info(fields)
+
+        fields.map do |field|
           new_column_from_field(table_name, field)
         end
       end

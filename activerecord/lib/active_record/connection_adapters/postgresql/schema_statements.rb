@@ -626,6 +626,10 @@ module ActiveRecord
             type_metadata = fetch_type_metadata(column_name, type, oid.to_i, fmod.to_i)
             default_value = extract_value_from_default(default)
             default_function = extract_default_function(default_value, default)
+            Rails.logger.info("Newest")
+            Rails.logger.info(default)
+            Rails.logger.info(default_function)
+            Rails.logger.info("DONE")
 
             if match = default_function&.match(/\Anextval\('"?(?<sequence_name>.+_(?<suffix>seq\d*))"?'::regclass\)\z/)
               serial = sequence_name_from_parts(table_name, column_name, match[:suffix]) == match[:sequence_name]

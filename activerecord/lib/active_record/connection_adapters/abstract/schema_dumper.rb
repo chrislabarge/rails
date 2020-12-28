@@ -13,9 +13,14 @@ module ActiveRecord
         end
 
         def column_spec_for_primary_key(column)
+          Rails.logger.info("Column instance")
+          Rails.logger.info(column.inspect)
           return {} if default_primary_key?(column)
+          Rails.logger.info("Column Spec for Primary Key")
           spec = { id: schema_type(column).inspect }
+          Rails.logger.info(spec)
           spec.merge!(prepare_column_options(column).except!(:null, :comment))
+          Rails.logger.info(spec)
           spec[:default] ||= "nil" if explicit_primary_key_default?(column)
           spec
         end
@@ -72,8 +77,13 @@ module ActiveRecord
 
         def schema_default(column)
           return unless column.has_default?
+          Rails.logger.info("Schema Default")
+
           type = @connection.lookup_cast_type_from_column(column)
+          Rails.logger.info("Type")
+          Rails.logger.info(type.inspect)
           default = type.deserialize(column.default)
+
           if default.nil?
             schema_expression(column)
           else
@@ -82,6 +92,8 @@ module ActiveRecord
         end
 
         def schema_expression(column)
+          Rails.logger.info("Schema Expression")
+          Rails.logger.info(column.default_function.inspect)
           "-> { #{column.default_function.inspect} }" if column.default_function
         end
 
