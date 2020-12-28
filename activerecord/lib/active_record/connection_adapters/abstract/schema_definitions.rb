@@ -276,6 +276,8 @@ module ActiveRecord
         @temporary = temporary
         @if_not_exists = if_not_exists
         @options = options
+        Rails.logger.info("Schema Definitions")
+        Rails.logger.info(@options)
         @as = as
         @name = name
         @comment = comment

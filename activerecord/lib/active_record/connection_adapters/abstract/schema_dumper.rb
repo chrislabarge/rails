@@ -17,6 +17,8 @@ module ActiveRecord
           spec = { id: schema_type(column).inspect }
           spec.merge!(prepare_column_options(column).except!(:null, :comment))
           spec[:default] ||= "nil" if explicit_primary_key_default?(column)
+          Rails.logger.info("Column Spec for Primary Key")
+          Rails.logger.info(spec)
           spec
         end
 
