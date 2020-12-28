@@ -46,8 +46,8 @@ module ActiveRecord
         # a record (as primary keys cannot be +nil+). This might be done via the
         # +SecureRandom.uuid+ method and a +before_save+ callback, for instance.
         def primary_key(name, type = :primary_key, **options)
-          puts "HEREEEEEEEEE".inspect
-          raise options.inspect
+          logger = Rails.logger
+          logger.info options.inspect
           if type == :uuid
             options[:default] = options.fetch(:default, "gen_random_uuid()")
           end
