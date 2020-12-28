@@ -232,6 +232,8 @@ module ActiveRecord
       def migrate
         check_target_version
 
+        raise "HERE".inspect
+
         scope = ENV["SCOPE"]
         verbose_was, Migration.verbose = Migration.verbose, verbose?
 
