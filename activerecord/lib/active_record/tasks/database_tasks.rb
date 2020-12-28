@@ -242,6 +242,8 @@ module ActiveRecord
         ActiveRecord::Base.clear_cache!
       ensure
         Migration.verbose = verbose_was
+        Rails.logger.info("Outer migrate()")
+        Rails.logger.info(Migration.verbose)
       end
 
       def migrate_status
