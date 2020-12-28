@@ -39,6 +39,7 @@ module ActiveRecord
     end
 
     def dump(stream)
+      Rails.logger.info("Dumping the file")
       header(stream)
       extensions(stream)
       tables(stream)
